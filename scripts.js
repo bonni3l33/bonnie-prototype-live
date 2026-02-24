@@ -84,56 +84,24 @@ document.addEventListener('DOMContentLoaded', function() {
     });
   });
 
-  // Drag and drop for placement cards
-  function initPlacementDragDrop() {
-    const placementLists = document.querySelectorAll('.placement-list');
+  // Toggle status label update
+  function updatePlacementToggles() {
+    const toggles = document.querySelectorAll('.placement-item__status .placement-item__toggle input[type="checkbox"]');
 
-    placementLists.forEach(list => {
-      let draggedElement = null;
+    toggles.forEach(toggle => {
+      const statusLabel = toggle.closest('.placement-item__status').querySelector('.placement-item__status-label');
 
-      const items = list.querySelectorAll('.placement-item');
-
-      items.forEach(item => {
-        // Make the entire card draggable when clicking the drag handle
-        const dragHandle = item.querySelector('.placement-item__drag');
-
-        if (dragHandle) {
-          dragHandle.addEventListener('mousedown', function() {
-            item.setAttribute('draggable', 'true');
-          });
-
-          item.addEventListener('dragstart', function(e) {
-            draggedElement = this;
-            this.classList.add('dragging');
-            e.dataTransfer.effectAllowed = 'move';
-          });
-
-          item.addEventListener('dragend', function() {
-            this.classList.remove('dragging');
-            this.setAttribute('draggable', 'false');
-          });
-
-          item.addEventListener('dragover', function(e) {
-            e.preventDefault();
-
-            if (draggedElement !== this) {
-              const bounding = this.getBoundingClientRect();
-              const offset = e.clientY - bounding.top;
-
-              if (offset > bounding.height / 2) {
-                this.parentNode.insertBefore(draggedElement, this.nextSibling);
-              } else {
-                this.parentNode.insertBefore(draggedElement, this);
-              }
-            }
-          });
+      // Update label on change
+      toggle.addEventListener('change', function() {
+        if (statusLabel) {
+          statusLabel.textContent = this.checked ? 'Active' : 'Inactive';
         }
       });
     });
   }
 
-  // Initialize drag and drop after DOM is loaded
-  initPlacementDragDrop();
+  // Initialize toggle handlers
+  updatePlacementToggles();
 
   // Chat action items - scroll to section on click
   const chatActions = document.querySelectorAll('.chat-action');

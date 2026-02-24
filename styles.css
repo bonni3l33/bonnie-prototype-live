@@ -4751,6 +4751,53 @@ img, svg {
   font-size: 13px;
 }
 
+.create-field__toggle-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-3);
+}
+
+.create-field__info-icon {
+  display: inline-block;
+  width: 16px;
+  height: 16px;
+  color: var(--color-text-subdued);
+  margin-left: 6px;
+  vertical-align: middle;
+  cursor: help;
+  flex-shrink: 0;
+}
+
+.create-field__section-title {
+  font-family: var(--font-primary);
+  font-size: 16px;
+  font-weight: var(--font-semibold);
+  color: var(--color-text);
+  margin: 0;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.create-field-section {
+  margin-top: var(--space-6);
+  padding-top: var(--space-6);
+  border-top: 1px solid var(--color-border);
+}
+
+.create-field-section:first-of-type {
+  margin-top: var(--space-5);
+}
+
+.create-field__toggle-status {
+  font-family: var(--font-primary);
+  font-size: var(--text-sm);
+  font-weight: var(--font-medium);
+  color: var(--color-text-subdued);
+  margin-left: 8px;
+}
+
 /* Placement Tabs Section */
 .placement-tabs-container {
   display: flex;
@@ -5039,6 +5086,13 @@ img, svg {
   font-size: var(--text-sm);
   color: var(--color-text-subdued);
   margin: 0 0 var(--space-4) 0;
+}
+
+/* Placement Universal Settings */
+.placement-universal-settings {
+  padding: var(--space-6) 0;
+  background: white;
+  border-top: 1px solid var(--color-border);
 }
 
 /* Button Variants */
