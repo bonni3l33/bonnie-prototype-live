@@ -295,10 +295,7 @@ document.addEventListener('DOMContentLoaded', function() {
             previewOptionsLink.style.display = 'inline-flex';
           }
 
-          // Gentle scroll to config section - still allows scrolling back up
-          setTimeout(() => {
-            templateConfigSection.scrollIntoView({ behavior: 'smooth', block: 'end' });
-          }, 150);
+          // No auto-scroll - let user naturally see config appear and scroll as needed
         }
       } else if (templateType === 'action') {
         // Show inline config for Multiple Action-Based Campaigns
@@ -312,10 +309,7 @@ document.addEventListener('DOMContentLoaded', function() {
             previewOptionsLink.style.display = 'inline-flex';
           }
 
-          // Gentle scroll to config section - still allows scrolling back up
-          setTimeout(() => {
-            templateConfigSection.scrollIntoView({ behavior: 'smooth', block: 'end' });
-          }, 150);
+          // No auto-scroll - let user naturally see config appear and scroll as needed
         }
       } else {
         // Hide config for Single Campaign
