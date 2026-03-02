@@ -288,16 +288,90 @@ document.addEventListener('DOMContentLoaded', function() {
         const templateType = selectedTemplate.value;
         console.log('Selected template:', templateType);
 
-        // Navigate to create view using the transition function from view-transition.js
-        if (typeof window.transitionToCreateView === 'function') {
-          window.transitionToCreateView(templateSelectionView);
+        // Check if user selected Multiple Promotion or Action-Based campaigns
+        if (templateType === 'promotion' || templateType === 'action') {
+          // Show preview options view
+          const previewView = document.getElementById('preview-options-view');
+          if (previewView) {
+            templateSelectionView.style.display = 'none';
+            previewView.style.display = 'block';
+          }
         } else {
-          // Fallback if view-transition.js hasn't loaded
-          templateSelectionView.style.display = 'none';
-          if (createView) {
-            createView.style.display = 'flex';
+          // Navigate to create view using the transition function from view-transition.js
+          if (typeof window.transitionToCreateView === 'function') {
+            window.transitionToCreateView(templateSelectionView);
+          } else {
+            // Fallback if view-transition.js hasn't loaded
+            templateSelectionView.style.display = 'none';
+            if (createView) {
+              createView.style.display = 'flex';
+            }
           }
         }
+      }
+    });
+  }
+
+  // Preview Options View - Tab Switching
+  const previewTabs = document.querySelectorAll('.preview-tab');
+  const previewPanels = document.querySelectorAll('.preview-panel');
+  const previewSelectBtn = document.getElementById('preview-select-option');
+  let selectedPreviewOption = 'option-a'; // Default
+
+  previewTabs.forEach(tab => {
+    tab.addEventListener('click', function() {
+      const targetPreview = this.getAttribute('data-preview');
+
+      // Update active tab
+      previewTabs.forEach(t => t.classList.remove('preview-tab--active'));
+      this.classList.add('preview-tab--active');
+
+      // Update active panel
+      previewPanels.forEach(panel => {
+        panel.classList.remove('preview-panel--active');
+        if (panel.id === targetPreview) {
+          panel.classList.add('preview-panel--active');
+        }
+      });
+
+      // Update selected option
+      selectedPreviewOption = targetPreview;
+
+      // Enable select button
+      if (previewSelectBtn) {
+        previewSelectBtn.disabled = false;
+      }
+    });
+  });
+
+  // Preview Options - Close/Back buttons
+  const previewCloseButtons = document.querySelectorAll('.preview-options-close');
+  const previewView = document.getElementById('preview-options-view');
+
+  previewCloseButtons.forEach(btn => {
+    btn.addEventListener('click', function() {
+      if (previewView && templateSelectionView) {
+        previewView.style.display = 'none';
+        templateSelectionView.style.display = 'flex';
+      }
+    });
+  });
+
+  // Preview Options - Select Option button
+  if (previewSelectBtn) {
+    previewSelectBtn.addEventListener('click', function() {
+      console.log('Selected preview option:', selectedPreviewOption);
+
+      // Store the selected option for implementation
+      localStorage.setItem('selectedInteractionPattern', selectedPreviewOption);
+
+      // Show confirmation
+      alert(`You've selected ${selectedPreviewOption.replace('-', ' ').toUpperCase()}. This interaction pattern will be saved for implementation.`);
+
+      // Navigate back to template selection for now
+      if (previewView && templateSelectionView) {
+        previewView.style.display = 'none';
+        templateSelectionView.style.display = 'flex';
       }
     });
   }
