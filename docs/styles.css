@@ -4754,6 +4754,106 @@ img, svg {
   margin: 0;
 }
 
+/* Template Inline Configuration Section */
+.template-config-section {
+  margin-top: var(--space-6);
+  padding: var(--space-6);
+  background: var(--color-bg-secondary);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-lg);
+  animation: slideDown 0.3s ease-out;
+}
+
+@keyframes slideDown {
+  from {
+    opacity: 0;
+    transform: translateY(-10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.template-config-container {
+  max-width: 600px;
+}
+
+.template-config__title {
+  font-size: var(--text-lg);
+  font-weight: var(--font-semibold);
+  color: var(--color-text);
+  margin: 0 0 var(--space-2) 0;
+}
+
+.template-config__subtitle {
+  font-size: var(--text-sm);
+  color: var(--color-text-secondary);
+  margin: 0 0 var(--space-6) 0;
+}
+
+.template-config-content {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-5);
+}
+
+.template-config-options {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-3);
+}
+
+.template-config-option {
+  display: flex;
+  align-items: flex-start;
+  gap: var(--space-3);
+  padding: var(--space-4);
+  background: var(--color-surface);
+  border: 2px solid var(--color-border);
+  border-radius: var(--radius-md);
+  cursor: pointer;
+  transition: all var(--transition-fast);
+}
+
+.template-config-option:hover {
+  border-color: var(--color-primary);
+  background: var(--color-primary-bg);
+}
+
+.template-config-option input[type="radio"] {
+  margin-top: 2px;
+  flex-shrink: 0;
+  cursor: pointer;
+}
+
+.template-config-option input[type="radio"]:checked + .template-config-option__content {
+  color: var(--color-text);
+}
+
+.template-config-option:has(input[type="radio"]:checked) {
+  border-color: var(--color-primary);
+  background: var(--color-primary-bg);
+}
+
+.template-config-option__content {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-1);
+}
+
+.template-config-option__title {
+  font-size: var(--text-sm);
+  font-weight: var(--font-medium);
+  color: var(--color-text);
+}
+
+.template-config-option__desc {
+  font-size: var(--text-xs);
+  color: var(--color-text-secondary);
+  line-height: 1.4;
+}
+
 /* Template Selection Footer */
 .template-selection-footer {
   display: flex;
@@ -4761,6 +4861,7 @@ img, svg {
   gap: var(--space-3);
   padding-top: var(--space-6);
   border-top: 1px solid var(--color-border);
+  margin-top: var(--space-6);
 }
 
 /* Responsive */

@@ -266,14 +266,51 @@ document.addEventListener('DOMContentLoaded', function() {
     });
   }
 
-  // Template selection radio buttons
+  // Template selection radio buttons with inline config
   const templateRadios = document.querySelectorAll('.template-option__radio');
   const templateContinueBtn = document.querySelector('.template-selection__continue');
+  const templateConfigSection = document.getElementById('template-config-section');
+  const configPromotion = document.getElementById('config-promotion');
+  const configAction = document.getElementById('config-action');
 
   templateRadios.forEach(radio => {
     radio.addEventListener('change', function() {
+      const templateType = this.value;
+
       if (templateContinueBtn) {
         templateContinueBtn.disabled = false;
+      }
+
+      // Show/hide inline configuration based on selection
+      if (templateType === 'promotion') {
+        // Show inline config for Multiple Promotion Campaigns
+        if (templateConfigSection && configPromotion && configAction) {
+          templateConfigSection.style.display = 'block';
+          configPromotion.style.display = 'flex';
+          configAction.style.display = 'none';
+
+          // Scroll to config section
+          setTimeout(() => {
+            templateConfigSection.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+          }, 100);
+        }
+      } else if (templateType === 'action') {
+        // Show inline config for Multiple Action-Based Campaigns
+        if (templateConfigSection && configPromotion && configAction) {
+          templateConfigSection.style.display = 'block';
+          configPromotion.style.display = 'none';
+          configAction.style.display = 'flex';
+
+          // Scroll to config section
+          setTimeout(() => {
+            templateConfigSection.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+          }, 100);
+        }
+      } else {
+        // Hide config for Single Campaign
+        if (templateConfigSection) {
+          templateConfigSection.style.display = 'none';
+        }
       }
     });
   });
@@ -288,24 +325,27 @@ document.addEventListener('DOMContentLoaded', function() {
         const templateType = selectedTemplate.value;
         console.log('Selected template:', templateType);
 
-        // Check if user selected Multiple Promotion or Action-Based campaigns
-        if (templateType === 'promotion' || templateType === 'action') {
-          // Show preview options view
-          const previewView = document.getElementById('preview-options-view');
-          if (previewView) {
-            templateSelectionView.style.display = 'none';
-            previewView.style.display = 'block';
-          }
+        // Store configuration if multiple campaigns selected
+        if (templateType === 'promotion') {
+          const campaignCount = document.getElementById('campaign-count')?.value;
+          const structure = document.querySelector('input[name="campaign-structure"]:checked')?.value;
+          console.log('Promotion config:', { campaignCount, structure });
+          localStorage.setItem('campaignConfig', JSON.stringify({ type: 'promotion', count: campaignCount, structure }));
+        } else if (templateType === 'action') {
+          const stepCount = document.getElementById('action-steps-count')?.value;
+          const journeyType = document.querySelector('input[name="journey-type"]:checked')?.value;
+          console.log('Action config:', { stepCount, journeyType });
+          localStorage.setItem('campaignConfig', JSON.stringify({ type: 'action', steps: stepCount, journeyType }));
+        }
+
+        // Navigate to create view using the transition function from view-transition.js
+        if (typeof window.transitionToCreateView === 'function') {
+          window.transitionToCreateView(templateSelectionView);
         } else {
-          // Navigate to create view using the transition function from view-transition.js
-          if (typeof window.transitionToCreateView === 'function') {
-            window.transitionToCreateView(templateSelectionView);
-          } else {
-            // Fallback if view-transition.js hasn't loaded
-            templateSelectionView.style.display = 'none';
-            if (createView) {
-              createView.style.display = 'flex';
-            }
+          // Fallback if view-transition.js hasn't loaded
+          templateSelectionView.style.display = 'none';
+          if (createView) {
+            createView.style.display = 'flex';
           }
         }
       }

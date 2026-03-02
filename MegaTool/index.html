@@ -238,6 +238,97 @@
                 </div>
               </div>
 
+              <!-- Inline Configuration Section (shown when multiple campaigns selected) -->
+              <div class="template-config-section" id="template-config-section" style="display: none;">
+                <div class="template-config-container">
+                  <h3 class="template-config__title">Configure your campaigns</h3>
+                  <p class="template-config__subtitle">Set up the structure for your multiple campaigns</p>
+
+                  <!-- Multiple Promotion Configuration -->
+                  <div class="template-config-content" id="config-promotion" style="display: none;">
+                    <div class="create-field">
+                      <label class="create-field__label">Number of campaigns</label>
+                      <select class="create-field__input" id="campaign-count">
+                        <option value="2">2 campaigns</option>
+                        <option value="3" selected>3 campaigns</option>
+                        <option value="4">4 campaigns</option>
+                        <option value="5">5 campaigns</option>
+                        <option value="6">6 campaigns</option>
+                      </select>
+                      <span class="create-field__hint">Choose how many coordinated promotions to run simultaneously</span>
+                    </div>
+
+                    <div class="create-field">
+                      <label class="create-field__label">Campaign structure</label>
+                      <div class="template-config-options">
+                        <label class="template-config-option">
+                          <input type="radio" name="campaign-structure" value="tiered" checked />
+                          <div class="template-config-option__content">
+                            <span class="template-config-option__title">Tiered offers</span>
+                            <span class="template-config-option__desc">Bronze, Silver, Gold tiers with increasing benefits</span>
+                          </div>
+                        </label>
+                        <label class="template-config-option">
+                          <input type="radio" name="campaign-structure" value="sequential" />
+                          <div class="template-config-option__content">
+                            <span class="template-config-option__title">Sequential timeline</span>
+                            <span class="template-config-option__desc">Week 1, Week 2, Week 3 rolling campaigns</span>
+                          </div>
+                        </label>
+                        <label class="template-config-option">
+                          <input type="radio" name="campaign-structure" value="ab-test" />
+                          <div class="template-config-option__content">
+                            <span class="template-config-option__title">A/B test variants</span>
+                            <span class="template-config-option__desc">Test different approaches with similar audiences</span>
+                          </div>
+                        </label>
+                      </div>
+                    </div>
+                  </div>
+
+                  <!-- Multiple Action-Based Configuration -->
+                  <div class="template-config-content" id="config-action" style="display: none;">
+                    <div class="create-field">
+                      <label class="create-field__label">Number of action steps</label>
+                      <select class="create-field__input" id="action-steps-count">
+                        <option value="2" selected>2 steps</option>
+                        <option value="3">3 steps</option>
+                        <option value="4">4 steps</option>
+                        <option value="5">5 steps</option>
+                      </select>
+                      <span class="create-field__hint">How many sequential actions in the customer journey</span>
+                    </div>
+
+                    <div class="create-field">
+                      <label class="create-field__label">Journey type</label>
+                      <div class="template-config-options">
+                        <label class="template-config-option">
+                          <input type="radio" name="journey-type" value="signup" checked />
+                          <div class="template-config-option__content">
+                            <span class="template-config-option__title">Sign-up incentive flow</span>
+                            <span class="template-config-option__desc">Reward users for completing registration steps</span>
+                          </div>
+                        </label>
+                        <label class="template-config-option">
+                          <input type="radio" name="journey-type" value="milestone" />
+                          <div class="template-config-option__content">
+                            <span class="template-config-option__title">Milestone rewards</span>
+                            <span class="template-config-option__desc">Unlock benefits after reaching activity thresholds</span>
+                          </div>
+                        </label>
+                        <label class="template-config-option">
+                          <input type="radio" name="journey-type" value="custom" />
+                          <div class="template-config-option__content">
+                            <span class="template-config-option__title">Custom action sequence</span>
+                            <span class="template-config-option__desc">Define your own specific trigger and reward flow</span>
+                          </div>
+                        </label>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
               <div class="template-selection-footer">
                 <button class="btn btn--primary template-selection__continue">Continue</button>
               </div>
