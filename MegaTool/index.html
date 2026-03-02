@@ -248,14 +248,8 @@
                   <div class="template-config-content" id="config-promotion" style="display: none;">
                     <div class="create-field">
                       <label class="create-field__label">Number of campaigns</label>
-                      <select class="create-field__input" id="campaign-count">
-                        <option value="2">2 campaigns</option>
-                        <option value="3" selected>3 campaigns</option>
-                        <option value="4">4 campaigns</option>
-                        <option value="5">5 campaigns</option>
-                        <option value="6">6 campaigns</option>
-                      </select>
-                      <span class="create-field__hint">Choose how many coordinated promotions to run simultaneously</span>
+                      <input type="number" class="create-field__input" id="campaign-count" value="3" min="2" max="10" />
+                      <span class="create-field__hint">Choose how many coordinated promotions to run simultaneously (2-10)</span>
                     </div>
 
                     <div class="create-field">
@@ -290,13 +284,8 @@
                   <div class="template-config-content" id="config-action" style="display: none;">
                     <div class="create-field">
                       <label class="create-field__label">Number of action steps</label>
-                      <select class="create-field__input" id="action-steps-count">
-                        <option value="2" selected>2 steps</option>
-                        <option value="3">3 steps</option>
-                        <option value="4">4 steps</option>
-                        <option value="5">5 steps</option>
-                      </select>
-                      <span class="create-field__hint">How many sequential actions in the customer journey</span>
+                      <input type="number" class="create-field__input" id="action-steps-count" value="2" min="2" max="10" />
+                      <span class="create-field__hint">How many sequential actions in the customer journey (2-10)</span>
                     </div>
 
                     <div class="create-field">

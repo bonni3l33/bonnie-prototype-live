@@ -295,10 +295,10 @@ document.addEventListener('DOMContentLoaded', function() {
             previewOptionsLink.style.display = 'inline-flex';
           }
 
-          // Scroll to config section
+          // Gentle scroll to config section - still allows scrolling back up
           setTimeout(() => {
-            templateConfigSection.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
-          }, 100);
+            templateConfigSection.scrollIntoView({ behavior: 'smooth', block: 'end' });
+          }, 150);
         }
       } else if (templateType === 'action') {
         // Show inline config for Multiple Action-Based Campaigns
@@ -312,10 +312,10 @@ document.addEventListener('DOMContentLoaded', function() {
             previewOptionsLink.style.display = 'inline-flex';
           }
 
-          // Scroll to config section
+          // Gentle scroll to config section - still allows scrolling back up
           setTimeout(() => {
-            templateConfigSection.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
-          }, 100);
+            templateConfigSection.scrollIntoView({ behavior: 'smooth', block: 'end' });
+          }, 150);
         }
       } else {
         // Hide config for Single Campaign
