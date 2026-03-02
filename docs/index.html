@@ -62,6 +62,11 @@
         <circle fill="currentColor" cx="6" cy="12" r="1.5"/>
         <circle fill="currentColor" cx="18" cy="12" r="1.5"/>
       </symbol>
+      <symbol id="icon-layout" viewBox="0 0 24 24">
+        <rect fill="none" stroke="currentColor" stroke-width="2" x="3" y="3" width="18" height="18" rx="2"/>
+        <line fill="none" stroke="currentColor" stroke-width="2" x1="3" y1="9" x2="21" y2="9"/>
+        <line fill="none" stroke="currentColor" stroke-width="2" x1="9" y1="21" x2="9" y2="9"/>
+      </symbol>
     </svg>
   </div>
 
@@ -95,6 +100,9 @@
           </a>
           <button class="local-nav__item" id="preview-nav-btn" style="display: none;" title="Preview Interaction Options">
             <svg class="icon" width="24" height="24"><use href="#icon-preview"/></svg>
+          </button>
+          <button class="local-nav__item" id="create-preview-nav-btn" style="display: none;" title="Preview Create View Options">
+            <svg class="icon" width="24" height="24"><use href="#icon-layout"/></svg>
           </button>
         </div>
       </nav>
@@ -672,6 +680,118 @@
           </div>
         </div>
 
+        <!-- Create View Preview Options -->
+        <div class="create-preview-view" id="create-preview-view" style="display: none;">
+          <div class="preview-options-container">
+            <div class="preview-options-header">
+              <h1 class="preview-options-title">Create View Structure for Multiple Campaigns</h1>
+              <p class="preview-options-subtitle">Campaign tabs at the top, with existing sections underneath</p>
+              <button class="btn btn--ghost create-preview-close">
+                <svg class="icon" width="24" height="24"><use href="#icon-close"/></svg>
+                Back to Templates
+              </button>
+            </div>
+
+            <!-- Preview Content -->
+            <div class="preview-content">
+              <div class="preview-demo">
+                <h2 class="preview-panel-title">Tabbed Campaign Interface</h2>
+                <p class="preview-panel-description">
+                  Campaign tabs at the top allow you to switch between different campaigns. All existing setup sections (Campaign Information, Targeting, Promotion Details, Placements) remain underneath for each selected campaign.
+                </p>
+
+                <div class="preview-mockup">
+                  <div class="create-mockup">
+                    <!-- Header -->
+                    <div class="create-mockup-header-simple">
+                      <div class="create-mockup-title">Summer 2026 Promotion Campaigns</div>
+                      <div class="create-mockup-actions">
+                        <div class="mockup-btn mockup-btn--ghost">Cancel</div>
+                        <div class="mockup-btn mockup-btn--primary mockup-btn--disabled">Publish All</div>
+                      </div>
+                    </div>
+
+                    <!-- Campaign Tabs -->
+                    <div class="create-mockup-tabs">
+                      <div class="create-mockup-tab create-mockup-tab--active">
+                        <span class="create-mockup-tab-number">1</span>
+                        <span class="create-mockup-tab-text">Campaign 1</span>
+                      </div>
+                      <div class="create-mockup-tab">
+                        <span class="create-mockup-tab-number">2</span>
+                        <span class="create-mockup-tab-text">Campaign 2</span>
+                      </div>
+                      <div class="create-mockup-tab">
+                        <span class="create-mockup-tab-number">3</span>
+                        <span class="create-mockup-tab-text">Campaign 3</span>
+                      </div>
+                    </div>
+
+                    <!-- Progress Bar -->
+                    <div class="create-mockup-progress-bar">
+                      <div class="create-mockup-progress-label">43% complete • 3 of 7 sections filled</div>
+                      <div class="create-mockup-progress-track">
+                        <div class="create-mockup-progress-fill" style="width: 43%;"></div>
+                      </div>
+                    </div>
+
+                    <!-- Existing Sections (collapsed view) -->
+                    <div class="create-mockup-sections">
+                      <div class="create-mockup-section create-mockup-section--completed">
+                        <div class="create-mockup-section-header">
+                          <div class="create-mockup-status">✓</div>
+                          <div class="create-mockup-section-title">Campaign Information</div>
+                          <div class="create-mockup-badge">Completed</div>
+                        </div>
+                      </div>
+
+                      <div class="create-mockup-section create-mockup-section--completed">
+                        <div class="create-mockup-section-header">
+                          <div class="create-mockup-status">✓</div>
+                          <div class="create-mockup-section-title">Targeting</div>
+                          <div class="create-mockup-badge">Completed</div>
+                        </div>
+                      </div>
+
+                      <div class="create-mockup-section">
+                        <div class="create-mockup-section-header">
+                          <div class="create-mockup-status">3</div>
+                          <div class="create-mockup-section-title">Promotion Details</div>
+                          <div class="create-mockup-badge create-mockup-badge--warning">Action needed</div>
+                        </div>
+                      </div>
+
+                      <div class="create-mockup-section">
+                        <div class="create-mockup-section-header">
+                          <div class="create-mockup-status">4</div>
+                          <div class="create-mockup-section-title">Placements</div>
+                          <div class="create-mockup-badge create-mockup-badge--warning">Action needed</div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+                <div class="preview-explanation">
+                  <h4>How it works</h4>
+                  <ul>
+                    <li><strong>Tabs at the top:</strong> Click between Campaign 1, 2, 3 to switch campaigns</li>
+                    <li><strong>Same sections underneath:</strong> All existing setup sections remain (Campaign Information, Targeting, Promotion Details, Placements)</li>
+                    <li><strong>Per-campaign configuration:</strong> Each campaign tab shows its own settings in the sections below</li>
+                    <li><strong>Progress tracking:</strong> Progress bar updates based on the currently selected campaign</li>
+                    <li><strong>Publish all:</strong> When all campaigns are complete, "Publish All" button becomes enabled</li>
+                  </ul>
+                </div>
+              </div>
+            </div>
+
+            <div class="preview-options-footer">
+              <button class="btn btn--ghost create-preview-close">Cancel</button>
+              <button class="btn btn--primary" id="create-preview-select-option">Apply This Design</button>
+            </div>
+          </div>
+        </div>
+
         <!-- Create View -->
         <div class="create-view" id="create-view" style="display: none;">
           <div class="create-view__header">
@@ -698,6 +818,13 @@
               </div>
               <span class="create-progress__label">43% complete • 3 of 7 sections filled</span>
             </div>
+
+            <!-- Campaign Tabs (for multiple campaigns) -->
+            <div class="campaign-tabs" id="campaign-tabs" style="display: none;">
+              <div class="campaign-tabs__container" id="campaign-tabs-container">
+                <!-- Tabs will be dynamically generated here -->
+              </div>
+            </div>
           </div>
 
           <div class="create-view__body">
@@ -723,7 +850,7 @@
                   <div class="create-field-group">
                     <div class="create-field">
                       <label class="create-field__label">Campaign Name</label>
-                      <input type="text" class="create-field__input" value="Summer 2026 DashPass Campaign" />
+                      <input type="text" class="create-field__input" id="campaign-name-input" placeholder="Enter campaign name" value="Summer 2026 DashPass Campaign" />
                     </div>
                     <div class="create-field">
                       <label class="create-field__label">Description</label>

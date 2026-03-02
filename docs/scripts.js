@@ -372,6 +372,17 @@ document.addEventListener('DOMContentLoaded', function() {
           localStorage.setItem('campaignConfig', JSON.stringify({ type: 'action', steps: stepCount, journeyType }));
         }
 
+        // Set up campaign tabs if multiple campaigns
+        setupCampaignTabs(templateType);
+
+        // Update URL hash for direct access
+        const config = JSON.parse(localStorage.getItem('campaignConfig') || '{}');
+        if (config.type && config.count) {
+          window.location.hash = `create&type=${config.type}&count=${config.count}&campaign=1`;
+        } else {
+          window.location.hash = 'create';
+        }
+
         // Navigate to create view using the transition function from view-transition.js
         if (typeof window.transitionToCreateView === 'function') {
           window.transitionToCreateView(templateSelectionView);
@@ -384,6 +395,223 @@ document.addEventListener('DOMContentLoaded', function() {
         }
       }
     });
+  }
+
+  // Setup Campaign Tabs for Multiple Campaigns
+  function setupCampaignTabs(templateType, skipHashUpdate) {
+    const campaignTabsContainer = document.getElementById('campaign-tabs-container');
+    const campaignTabsWrapper = document.getElementById('campaign-tabs');
+    const createViewTitle = document.querySelector('.create-view__title');
+    const publishBtn = document.getElementById('publish-btn');
+
+    // Get stored campaign configuration
+    const configStr = localStorage.getItem('campaignConfig');
+    if (!configStr) return;
+
+    const config = JSON.parse(configStr);
+
+    // Only show tabs for multiple campaign templates
+    if (config.type === 'promotion' || config.type === 'action') {
+      const campaignCount = parseInt(config.count || config.steps || 3);
+
+      // Show campaign tabs
+      if (campaignTabsWrapper) {
+        campaignTabsWrapper.style.display = 'block';
+      }
+
+      // Update title to reflect multiple campaigns
+      if (createViewTitle) {
+        if (config.type === 'promotion') {
+          createViewTitle.textContent = 'Multiple Promotion Campaigns';
+        } else if (config.type === 'action') {
+          createViewTitle.textContent = 'Multiple Action-Based Campaigns';
+        }
+      }
+
+      // Update publish button text
+      if (publishBtn) {
+        publishBtn.textContent = 'Publish All';
+      }
+
+      // Generate tabs
+      if (campaignTabsContainer) {
+        campaignTabsContainer.innerHTML = '';
+
+        for (let i = 1; i <= campaignCount; i++) {
+          const tab = document.createElement('button');
+          tab.className = 'campaign-tab' + (i === 1 ? ' campaign-tab--active' : '');
+          tab.setAttribute('data-campaign-index', i);
+
+          const text = document.createElement('span');
+          text.className = 'campaign-tab__text';
+          text.textContent = `Campaign ${i}`;
+
+          tab.appendChild(text);
+          campaignTabsContainer.appendChild(tab);
+        }
+
+        // Add click handlers for tabs
+        const tabs = campaignTabsContainer.querySelectorAll('.campaign-tab');
+        tabs.forEach(tab => {
+          tab.addEventListener('click', function() {
+            const campaignIndex = this.getAttribute('data-campaign-index');
+
+            // Update active tab
+            tabs.forEach(t => t.classList.remove('campaign-tab--active'));
+            this.classList.add('campaign-tab--active');
+
+            // Store current campaign index
+            localStorage.setItem('currentCampaignIndex', campaignIndex);
+
+            console.log(`Switched to Campaign ${campaignIndex}`);
+
+            // Refresh sections for the selected campaign
+            refreshCampaignSections(campaignIndex);
+
+            // Update URL hash to reflect current campaign (if not from router)
+            if (!skipHashUpdate) {
+              const config = JSON.parse(localStorage.getItem('campaignConfig') || '{}');
+              if (config.type && config.count) {
+                window.location.hash = `create&type=${config.type}&count=${config.count}&campaign=${campaignIndex}`;
+              }
+            }
+          });
+        });
+
+        // Set initial campaign index and update placeholder
+        localStorage.setItem('currentCampaignIndex', '1');
+
+        // Set initial Campaign Name placeholder
+        const campaignNameInput = document.getElementById('campaign-name-input');
+        if (campaignNameInput) {
+          campaignNameInput.placeholder = 'Campaign 1';
+          campaignNameInput.value = '';
+        }
+      }
+    } else {
+      // Hide campaign tabs for single campaign
+      if (campaignTabsWrapper) {
+        campaignTabsWrapper.style.display = 'none';
+      }
+
+      // Reset title
+      if (createViewTitle) {
+        createViewTitle.textContent = 'Summer 2026 DashPass Campaign';
+      }
+
+      // Reset publish button
+      if (publishBtn) {
+        publishBtn.textContent = 'Publish';
+      }
+    }
+  }
+
+  // Expose functions to global scope for router
+  window.setupCampaignTabsFromRouter = function(templateType) {
+    setupCampaignTabs(templateType, true);
+  };
+
+  window.refreshCampaignSectionsFromRouter = function(campaignIndex) {
+    refreshCampaignSections(campaignIndex);
+  };
+
+  // Refresh Campaign Sections when switching tabs
+  function refreshCampaignSections(campaignIndex) {
+    const sectionsContainer = document.querySelector('.create-sections');
+    if (!sectionsContainer) return;
+
+    // Add fade-out transition
+    sectionsContainer.style.opacity = '0.4';
+    sectionsContainer.style.transition = 'opacity 0.2s ease';
+
+    // After brief delay, update content and fade back in
+    setTimeout(() => {
+      // Update page title or breadcrumb to show current campaign
+      const breadcrumbCurrent = document.querySelector('.breadcrumb-current');
+      if (breadcrumbCurrent) {
+        breadcrumbCurrent.textContent = `Campaign ${campaignIndex}`;
+      }
+
+      // Update Campaign Name input placeholder
+      const campaignNameInput = document.getElementById('campaign-name-input');
+      if (campaignNameInput) {
+        campaignNameInput.placeholder = `Campaign ${campaignIndex}`;
+        // Clear value for demo purposes to show different campaigns
+        // In real app, this would load saved campaign name from storage
+        campaignNameInput.value = '';
+      }
+
+      // Update progress based on campaign
+      // For demo purposes, show different progress for different campaigns
+      const progressFill = document.querySelector('.create-progress__fill');
+      const progressLabel = document.querySelector('.create-progress__label');
+
+      if (progressFill && progressLabel) {
+        const progressValues = {
+          '1': { percent: 43, completed: 3, total: 7 },
+          '2': { percent: 14, completed: 1, total: 7 },
+          '3': { percent: 0, completed: 0, total: 7 }
+        };
+
+        const progress = progressValues[campaignIndex] || progressValues['1'];
+        progressFill.style.width = `${progress.percent}%`;
+        progressLabel.textContent = `${progress.percent}% complete • ${progress.completed} of ${progress.total} sections filled`;
+      }
+
+      // Update section completion states based on campaign
+      const sections = sectionsContainer.querySelectorAll('.create-section');
+      sections.forEach((section, index) => {
+        // Reset all sections first
+        section.classList.remove('create-section--completed', 'create-section--incomplete');
+
+        const statusEl = section.querySelector('.create-section__status');
+        const badgeEl = section.querySelector('.create-section__badge');
+
+        // For Campaign 1: first 3 sections completed
+        // For Campaign 2: first section completed
+        // For Campaign 3: no sections completed
+        let isCompleted = false;
+
+        if (campaignIndex === '1' && index < 3) {
+          isCompleted = true;
+        } else if (campaignIndex === '2' && index < 1) {
+          isCompleted = true;
+        }
+
+        if (isCompleted) {
+          section.classList.add('create-section--completed');
+          if (statusEl) {
+            statusEl.classList.add('create-section__status--completed');
+            statusEl.classList.remove('create-section__status--incomplete');
+            statusEl.innerHTML = '<svg class="icon" width="12" height="12" viewBox="0 0 16 16" fill="none"><path fill-rule="evenodd" clip-rule="evenodd" d="M14.7071 3.29289C15.0976 3.68342 15.0976 4.31658 14.7071 4.70711L6.20711 13.2071C5.81658 13.5976 5.18342 13.5976 4.79289 13.2071L1.29289 9.70711C0.902369 9.31658 0.902369 8.68342 1.29289 8.29289C1.68342 7.90237 2.31658 7.90237 2.70711 8.29289L5.5 11.0858L13.2929 3.29289C13.6834 2.90237 14.3166 2.90237 14.7071 3.29289Z" fill="currentColor"/></svg>';
+          }
+          if (badgeEl) {
+            badgeEl.textContent = 'Completed';
+            badgeEl.classList.remove('create-section__badge--action');
+            badgeEl.classList.add('create-section__badge--completed');
+          }
+        } else {
+          section.classList.add('create-section--incomplete');
+          if (statusEl) {
+            statusEl.classList.add('create-section__status--incomplete');
+            statusEl.classList.remove('create-section__status--completed');
+            const ringHtml = '<span class="create-section__status-ring" style="background: conic-gradient(var(--color-primary) 0deg 54deg, var(--color-border) 54deg 360deg);"></span>';
+            statusEl.innerHTML = ringHtml;
+          }
+          if (badgeEl) {
+            badgeEl.textContent = 'Action needed';
+            badgeEl.classList.remove('create-section__badge--completed');
+            badgeEl.classList.add('create-section__badge--action');
+          }
+        }
+      });
+
+      // Fade back in
+      sectionsContainer.style.opacity = '1';
+
+      // Store campaign data state (in a real app, this would load from backend)
+      console.log(`Loaded data for Campaign ${campaignIndex}`);
+    }, 200);
   }
 
   // Preview Options View - Tab Switching
@@ -445,6 +673,65 @@ document.addEventListener('DOMContentLoaded', function() {
       // Navigate back to template selection for now
       if (previewView && templateSelectionView) {
         previewView.style.display = 'none';
+        templateSelectionView.style.display = 'flex';
+      }
+    });
+  }
+
+  // Create Preview Navigation
+  const createPreviewNavBtn = document.getElementById('create-preview-nav-btn');
+  const createPreviewView = document.getElementById('create-preview-view');
+  const createPreviewCloseButtons = document.querySelectorAll('.create-preview-close');
+  const createPreviewSelectBtn = document.getElementById('create-preview-select-option');
+
+  // Show/hide create preview nav button based on template selection
+  templateRadios.forEach(radio => {
+    radio.addEventListener('change', function() {
+      const templateType = this.value;
+
+      if (createPreviewNavBtn) {
+        // Show create preview nav button for multiple campaign templates
+        if (templateType === 'promotion' || templateType === 'action') {
+          createPreviewNavBtn.style.display = 'flex';
+        } else {
+          createPreviewNavBtn.style.display = 'none';
+        }
+      }
+    });
+  });
+
+  // Navigate to create preview view
+  if (createPreviewNavBtn) {
+    createPreviewNavBtn.addEventListener('click', function() {
+      if (createPreviewView && templateSelectionView) {
+        templateSelectionView.style.display = 'none';
+        createPreviewView.style.display = 'flex';
+      }
+    });
+  }
+
+  // Close/Back from create preview view
+  createPreviewCloseButtons.forEach(btn => {
+    btn.addEventListener('click', function() {
+      if (createPreviewView && templateSelectionView) {
+        createPreviewView.style.display = 'none';
+        templateSelectionView.style.display = 'flex';
+      }
+    });
+  });
+
+  // Create Preview - Apply Design button
+  if (createPreviewSelectBtn) {
+    createPreviewSelectBtn.addEventListener('click', function() {
+      // Store that user has approved the tabbed design
+      localStorage.setItem('selectedCreateStructure', 'tabbed-campaigns');
+
+      // Show confirmation
+      alert('Tabbed campaign design applied. This structure will be used for the create view.');
+
+      // Navigate back to template selection
+      if (createPreviewView && templateSelectionView) {
+        createPreviewView.style.display = 'none';
         templateSelectionView.style.display = 'flex';
       }
     });
