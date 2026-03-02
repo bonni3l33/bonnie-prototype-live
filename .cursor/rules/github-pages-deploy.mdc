@@ -1,0 +1,54 @@
+---
+description: GitHub Pages deployment workflow for bonnie-prototype
+alwaysApply: true
+---
+
+# GitHub Pages Deployment
+
+This project is deployed to GitHub Pages using the **legacy** (branch-based) mode.
+The project files are committed to the `docs/` directory on `main`, and GitHub serves it directly.
+
+**Live URL**: https://bookish-memory-p3er739.pages.github.io/
+
+## How It Works
+
+source files → copy to docs/ → push to main → GitHub Pages serves docs/
+
+- Source `.html`, `.js`, `.css` files are in the project root
+- `docs/` is committed (GitHub Pages source)
+- `.nojekyll` in `docs/` disables Jekyll processing
+
+## Agent Instructions
+
+A **pre-commit hook** automatically copies updated files to `docs/` whenever HTML/JS/CSS files are staged.
+Do NOT manually copy files to `docs/` — the hook handles it during `git commit`.
+
+### Shell permissions
+
+Use standard git commands. The pre-commit hook will automatically sync changes to `docs/`.
+
+### If the hook is missing
+
+Git hooks are not tracked by git and can be lost after a re-clone. If `git commit`
+does not produce "Updating docs/ for GitHub Pages..." output, reinstall the hook:
+
+```bash
+cat > .git/hooks/pre-commit << 'HOOK'
+#!/bin/sh
+STAGED=$(git diff --cached --name-only --diff-filter=d | grep -E '\.(html|js|css)$' | grep -v '^docs/')
+if [ -z "$STAGED" ]; then exit 0; fi
+echo "Updating docs/ for GitHub Pages..."
+mkdir -p docs
+cp *.html *.js *.css docs/ 2>/dev/null
+touch docs/.nojekyll
+git add docs/
+echo "docs/ updated."
+HOOK
+chmod +x .git/hooks/pre-commit
+```
+
+## Repo Information
+
+- **GitHub Repo**: https://github.com/doordash/bonnie-prototype
+- **Pages URL**: https://bookish-memory-p3er739.pages.github.io/
+- **Source**: `main` branch, `/docs` directory
