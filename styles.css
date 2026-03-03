@@ -2252,10 +2252,10 @@ img, svg {
   position: fixed;
   top: 242px; /* Below global nav + create header, aligned with sections */
   right: 16px;
-  bottom: 14px;
   width: 25vw;
   min-width: 380px;
   max-width: 480px;
+  max-height: 600px;
   height: auto;
   background: #fafafa;
   border: 1px solid var(--color-border-strong);
