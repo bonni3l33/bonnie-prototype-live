@@ -368,7 +368,7 @@ document.addEventListener('DOMContentLoaded', function() {
         const templateType = selectedTemplate.value;
         console.log('Selected template:', templateType);
 
-        // Store configuration if multiple campaigns selected
+        // Store configuration for all template types
         if (templateType === 'promotion') {
           const campaignCount = document.getElementById('campaign-count')?.value;
           const structure = document.querySelector('input[name="campaign-structure"]:checked')?.value;
@@ -379,9 +379,12 @@ document.addEventListener('DOMContentLoaded', function() {
           const journeyType = document.querySelector('input[name="journey-type"]:checked')?.value;
           console.log('Action config:', { stepCount, journeyType });
           localStorage.setItem('campaignConfig', JSON.stringify({ type: 'action', steps: stepCount, journeyType }));
+        } else if (templateType === 'single') {
+          // Store single campaign type
+          localStorage.setItem('campaignConfig', JSON.stringify({ type: 'single' }));
         }
 
-        // Set up campaign tabs if multiple campaigns
+        // Set up campaign tabs (will hide for single campaign)
         setupCampaignTabs(templateType);
 
         // Update URL hash for direct access
