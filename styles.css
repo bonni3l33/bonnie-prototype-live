@@ -4718,9 +4718,9 @@ img, svg {
 
 .template-option__radio:checked + .template-option__card {
   border-color: var(--color-text);
-  border-width: 2px;
-  padding: calc(var(--space-4) - 1px) calc(var(--space-5) - 1px);
-  padding-right: 55px;
+  border-width: 1.5px;
+  padding: var(--space-4) var(--space-5);
+  padding-right: 56px;
 }
 
 .template-option__icon {
@@ -4870,9 +4870,9 @@ img, svg {
 
 .template-config-option:has(input[type="radio"]:checked) {
   border-color: var(--color-text);
-  border-width: 2px;
-  padding: 15px 19px;
-  padding-right: 55px;
+  border-width: 1.5px;
+  padding: 16px 20px;
+  padding-right: 56px;
 }
 
 .template-config-option__content {
