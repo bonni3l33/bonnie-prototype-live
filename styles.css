@@ -4802,14 +4802,14 @@ img, svg {
   font-weight: 600;
   color: var(--color-text);
   margin: 0 0 8px 0;
-  text-align: center;
+  text-align: left;
 }
 
 .template-config__subtitle {
   font-size: 14px;
   color: var(--color-text-secondary);
   margin: 0 0 40px 0;
-  text-align: center;
+  text-align: left;
 }
 
 .template-config-content {
