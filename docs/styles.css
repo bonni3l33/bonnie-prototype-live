@@ -7832,6 +7832,16 @@ img, svg {
   margin-bottom: 0;
 }
 
+.summary-field--multiline ol {
+  margin: 0 0 12px 0;
+  padding-left: 20px;
+  list-style-type: decimal;
+}
+
+.summary-field--multiline ol:last-child {
+  margin-bottom: 0;
+}
+
 .summary-field--multiline li {
   margin-bottom: 8px;
   line-height: 20px;
