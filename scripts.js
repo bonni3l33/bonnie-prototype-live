@@ -1664,6 +1664,9 @@ document.addEventListener('DOMContentLoaded', function() {
             });
           }, 300);
         }
+
+        // Check if all sections are confirmed to enable Publish button
+        checkAllSectionsConfirmed();
       }
     }
 
@@ -1713,7 +1716,34 @@ document.addEventListener('DOMContentLoaded', function() {
           confirmBtn.style.display = 'block';
           editBtn.style.display = 'none';
         }
+
+        // Check if all sections are confirmed to enable/disable Publish button
+        checkAllSectionsConfirmed();
       }
     }
   });
+
+  // Function to check if all sections are confirmed and update Publish button
+  function checkAllSectionsConfirmed() {
+    const allSections = document.querySelectorAll('.create-section');
+    const confirmedSections = document.querySelectorAll('.create-section__status--confirmed');
+    const publishBtn = document.getElementById('publish-btn');
+
+    if (!publishBtn) return;
+
+    // Check if all sections have been confirmed
+    if (allSections.length > 0 && confirmedSections.length === allSections.length) {
+      // Enable the Publish button with primary style
+      publishBtn.disabled = false;
+      publishBtn.removeAttribute('disabled');
+      publishBtn.classList.remove('btn--secondary');
+      publishBtn.classList.add('btn--primary');
+    } else {
+      // Disable the Publish button
+      publishBtn.disabled = true;
+      publishBtn.setAttribute('disabled', 'disabled');
+      publishBtn.classList.remove('btn--primary');
+      publishBtn.classList.add('btn--secondary');
+    }
+  }
 });
