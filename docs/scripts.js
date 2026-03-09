@@ -948,6 +948,74 @@ document.addEventListener('DOMContentLoaded', function() {
   }
 
   // Typing animation function
+  // Helper function to show final confirmation message in chat
+  function showFinalConfirmationMessage() {
+    const chatConversation = document.querySelector('.summary-chat-conversation');
+    const chatPanel = document.querySelector('.summary-chat-panel__content');
+
+    if (!chatConversation) return;
+
+    // Show loading dots first
+    setTimeout(() => {
+      const loadingEl = document.createElement('div');
+      loadingEl.className = 'summary-chat-loading';
+      loadingEl.innerHTML = `
+        <div class="summary-chat-loading__dot"></div>
+        <div class="summary-chat-loading__dot"></div>
+        <div class="summary-chat-loading__dot"></div>
+      `;
+      chatConversation.appendChild(loadingEl);
+
+      // Scroll to bottom to show loading
+      if (chatPanel) {
+        chatPanel.scrollTop = chatPanel.scrollHeight;
+      }
+
+      // After loading animation, show final message
+      setTimeout(() => {
+        loadingEl.remove();
+
+        // Hide all previous question bubbles
+        const allQuestions = chatConversation.querySelectorAll('.summary-chat-question');
+        allQuestions.forEach(q => q.style.display = 'none');
+
+        // Create final confirmation message
+        const finalMessageEl = document.createElement('div');
+        finalMessageEl.className = 'summary-chat-question';
+        finalMessageEl.innerHTML = `
+          <div class="summary-chat-question__text">Confirm the summary to continue</div>
+        `;
+        chatConversation.appendChild(finalMessageEl);
+
+        // Scroll to bottom
+        if (chatPanel) {
+          chatPanel.scrollTop = chatPanel.scrollHeight;
+        }
+
+        // Show the action buttons on the left
+        const summaryActions = document.getElementById('summary-actions');
+        if (summaryActions) {
+          summaryActions.style.display = 'flex';
+
+          // Auto scroll left section to bring buttons into view
+          setTimeout(() => {
+            const summaryContainer = document.querySelector('.summary-container');
+            if (summaryContainer) {
+              const actionsTop = summaryActions.offsetTop;
+              const containerHeight = summaryContainer.clientHeight;
+              const scrollTarget = actionsTop - containerHeight + summaryActions.offsetHeight + 100;
+
+              summaryContainer.scrollTo({
+                top: scrollTarget,
+                behavior: 'smooth'
+              });
+            }
+          }, 100);
+        }
+      }, 800);
+    }, 300);
+  }
+
   // Shared function to progress to next step
   function progressToNextStep(currentQuestionEl) {
     // Find the currently active step FIRST
@@ -1106,28 +1174,8 @@ document.addEventListener('DOMContentLoaded', function() {
         }
       }, 300); // Initial delay before showing loading dots
     } else {
-      // All steps completed - show the action buttons
-      setTimeout(() => {
-        const summaryActions = document.getElementById('summary-actions');
-        if (summaryActions) {
-          summaryActions.style.display = 'flex';
-
-          // Auto scroll left section to bring buttons into view
-          setTimeout(() => {
-            const summaryContainer = document.querySelector('.summary-container');
-            if (summaryContainer) {
-              const actionsTop = summaryActions.offsetTop;
-              const containerHeight = summaryContainer.clientHeight;
-              const scrollTarget = actionsTop - containerHeight + summaryActions.offsetHeight + 100;
-
-              summaryContainer.scrollTo({
-                top: scrollTarget,
-                behavior: 'smooth'
-              });
-            }
-          }, 100);
-        }
-      }, 300);
+      // All steps completed - show final confirmation message
+      showFinalConfirmationMessage();
     }
   }
 
@@ -1553,13 +1601,8 @@ document.addEventListener('DOMContentLoaded', function() {
             }, 300); // Initial delay before showing loading dots
           }
         } else {
-          // All sections completed - show final action buttons
-          setTimeout(() => {
-            const summaryActions = document.getElementById('summary-actions');
-            if (summaryActions) {
-              summaryActions.style.display = 'flex';
-            }
-          }, 500);
+          // All sections completed - show final confirmation message
+          showFinalConfirmationMessage();
         }
       }
     }
