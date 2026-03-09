@@ -1079,6 +1079,11 @@ document.addEventListener('DOMContentLoaded', function() {
 
           if (modifyBtn) {
             modifyBtn.addEventListener('click', function() {
+              // Hide the action buttons
+              if (actionsEl) {
+                actionsEl.style.display = 'none';
+              }
+
               // The section to edit corresponds to currentStepIndex + 2
               const sectionNumber = currentStepIndex + 2;
               const section = document.querySelector(`.summary-section[data-section="${sectionNumber}"]`);
@@ -1137,6 +1142,13 @@ document.addEventListener('DOMContentLoaded', function() {
 
   if (chatModifyBtn) {
     chatModifyBtn.addEventListener('click', function() {
+      // Hide the action buttons
+      const questionEl = document.getElementById('summary-chat-question');
+      const actionsEl = questionEl ? questionEl.querySelector('.summary-chat-question__actions') : null;
+      if (actionsEl) {
+        actionsEl.style.display = 'none';
+      }
+
       // Check which step we're on
       const activeCircle = document.querySelector('.summary-chat-step__circle--active');
       if (!activeCircle) return;
@@ -1268,6 +1280,12 @@ document.addEventListener('DOMContentLoaded', function() {
 
           if (modifyBtn) {
             modifyBtn.addEventListener('click', function() {
+              // Hide the action buttons
+              const actionsEl = aiResponseEl.querySelector('.summary-chat-question__actions');
+              if (actionsEl) {
+                actionsEl.style.display = 'none';
+              }
+
               // This is for Placements (section 3)
               const sectionNumber = 3;
               const section = document.querySelector(`.summary-section[data-section="${sectionNumber}"]`);
