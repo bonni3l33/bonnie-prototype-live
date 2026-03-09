@@ -8335,6 +8335,13 @@ select.create-field__input:disabled {
   border-radius: 50%;
   background: #E9EAEC;
   flex-shrink: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 12px;
+  font-weight: 600;
+  line-height: 18px;
+  color: #767B83;
 }
 
 .summary-chat-step__circle--active {
