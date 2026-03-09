@@ -469,7 +469,13 @@ document.addEventListener('DOMContentLoaded', function() {
       `;
 
       // Targeting
-      targetingEl.textContent = 'Active Customers with 1-3 lifetime orders, excluding fraud and customers in other programs';
+      targetingEl.innerHTML = `
+        <strong>Lifecycle status = Dormant</strong>
+        <ul>
+          <li>No order within defined dormant window (e.g., past X days since last order)</li>
+          <li>Not yet classified as "Churned" (longer inactivity threshold)</li>
+        </ul>
+      `;
 
     } else if (config.type === 'action') {
       // Campaign Type
