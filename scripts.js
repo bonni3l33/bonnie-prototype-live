@@ -1472,9 +1472,16 @@ document.addEventListener('DOMContentLoaded', function() {
         const currentStepIndex = currentSectionNumber - 1; // Convert section number to step index (1->0, 2->1, etc.)
 
         if (allSteps.length > 0 && currentStepIndex < allSteps.length) {
+          const currentCircle = allSteps[currentStepIndex].querySelector('.summary-chat-step__circle');
           const currentLine = allSteps[currentStepIndex].querySelector('.summary-chat-step__line');
           const nextStep = allSteps[currentStepIndex + 1];
           const nextCircle = nextStep ? nextStep.querySelector('.summary-chat-step__circle') : null;
+
+          // Mark current step as completed
+          if (currentCircle) {
+            currentCircle.classList.remove('summary-chat-step__circle--active');
+            currentCircle.classList.add('summary-chat-step__circle--completed');
+          }
 
           // Fill the line to next step
           if (currentLine) {
