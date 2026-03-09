@@ -1292,8 +1292,18 @@ document.addEventListener('DOMContentLoaded', function() {
   const summaryConfirmBtn = document.getElementById('summary-confirm-btn');
   if (summaryConfirmBtn) {
     summaryConfirmBtn.addEventListener('click', function() {
-      // Navigate to create view
-      window.location.hash = 'create';
+      // Get campaign configuration
+      const config = JSON.parse(localStorage.getItem('campaignConfig') || '{}');
+
+      // Navigate to create view with campaign parameters for multiple campaigns
+      if (config.type === 'promotion' && config.count) {
+        window.location.hash = `create&type=${config.type}&count=${config.count}`;
+      } else if (config.type === 'action' && config.steps) {
+        window.location.hash = `create&type=${config.type}&count=${config.steps}`;
+      } else {
+        // Single campaign or no config
+        window.location.hash = 'create';
+      }
     });
   }
 
