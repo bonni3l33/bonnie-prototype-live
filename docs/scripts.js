@@ -998,7 +998,6 @@ document.addEventListener('DOMContentLoaded', function() {
     if (currentCircle) {
       currentCircle.classList.remove('summary-chat-step__circle--active');
       currentCircle.classList.add('summary-chat-step__circle--completed');
-      currentCircle.textContent = String(currentStepIndex + 1);
     }
 
     // Fill the line to next step
@@ -1012,7 +1011,6 @@ document.addEventListener('DOMContentLoaded', function() {
     // Activate next step if it exists
     if (nextCircle && currentStepIndex < 3) {
       nextCircle.classList.add('summary-chat-step__circle--active');
-      nextCircle.textContent = String(currentStepIndex + 2);
 
       // Remove disabled state from the next section in the left panel
       const nextSectionNumber = currentStepIndex + 2;
