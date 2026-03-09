@@ -629,6 +629,12 @@ document.addEventListener('DOMContentLoaded', function() {
           }
           campaignNameInput.value = '';
         }
+
+        // Set initial Description textarea for promotion campaigns
+        const descriptionTextarea = document.querySelector('#section-campaign-info .create-field__textarea');
+        if (descriptionTextarea && config.type === 'promotion') {
+          descriptionTextarea.value = 'Phased multi-order discounts (habit restoration)';
+        }
       }
     } else {
       // Hide campaign tabs for single campaign
@@ -676,8 +682,9 @@ document.addEventListener('DOMContentLoaded', function() {
 
       // Update Campaign Name input placeholder
       const campaignNameInput = document.getElementById('campaign-name-input');
+      const config = JSON.parse(localStorage.getItem('campaignConfig') || '{}');
+
       if (campaignNameInput) {
-        const config = JSON.parse(localStorage.getItem('campaignConfig') || '{}');
         // Use offer descriptions for promotion campaigns
         if (config.type === 'promotion') {
           const offerLabels = ['25% off 3 orders', '35% off 3 orders', '40% off 2 orders'];
@@ -688,6 +695,12 @@ document.addEventListener('DOMContentLoaded', function() {
         // Clear value for demo purposes to show different campaigns
         // In real app, this would load saved campaign name from storage
         campaignNameInput.value = '';
+      }
+
+      // Update Description textarea for promotion campaigns
+      const descriptionTextarea = document.querySelector('#section-campaign-info .create-field__textarea');
+      if (descriptionTextarea && config.type === 'promotion') {
+        descriptionTextarea.value = 'Phased multi-order discounts (habit restoration)';
       }
 
       // Update progress based on campaign
