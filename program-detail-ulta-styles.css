@@ -287,22 +287,21 @@
   background-color: #00832d;
 }
 
+/* Meta Tags - Medium size for page header */
 .meta-tag {
   display: inline-flex;
   align-items: center;
-  padding: 4px;
+  padding: 1px 6px;
   border-radius: 4px;
   font-family: 'DD Norms', 'TT Norms', sans-serif;
-  font-size: 12px;
+  font-size: 16px;
   font-weight: 700;
-  line-height: 18px;
-  letter-spacing: -0.01px;
+  line-height: 22px;
+  letter-spacing: 0;
   white-space: nowrap;
   width: fit-content;
   color: #191919;
   background-color: #f1f1f1;
-  height: 20px;
-  box-sizing: border-box;
 }
 
 .meta-tag--default {
@@ -313,6 +312,17 @@
 .meta-tag--running {
   background-color: #e7fbef;
   color: #00832d;
+}
+
+/* Small size for campaign cards */
+.campaign-card .meta-tag {
+  font-size: 12px;
+  font-weight: 700;
+  line-height: 18px;
+  letter-spacing: -0.01px;
+  height: 20px;
+  padding: 4px;
+  border-radius: 4px;
 }
 
 .detail-header__actions {
