@@ -447,9 +447,9 @@
 
 /* Parent Campaign Card */
 .parent-campaign-card {
-  /* background: white; */
-  /* border: 1px solid #e7e7e7; */
-  /* border-radius: 8px; */
+  background: white;
+  border: 1px solid #e7e7e7;
+  border-radius: 8px;
   min-height: 120px;
   margin-bottom: 24px;
   position: relative;
