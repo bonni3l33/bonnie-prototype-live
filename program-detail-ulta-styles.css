@@ -288,38 +288,29 @@
 }
 
 .meta-tag {
+  display: inline-flex;
+  align-items: center;
+  padding: 4px;
+  border-radius: 4px;
+  font-family: 'DD Norms', 'TT Norms', sans-serif;
   font-size: 12px;
   font-weight: 700;
   line-height: 18px;
   letter-spacing: -0.01px;
+  white-space: nowrap;
   color: #191919;
   background-color: #f1f1f1;
-  padding: 4px;
-  border-radius: 4px;
-  display: inline-block;
   height: 20px;
 }
 
 .meta-tag--default {
-  font-size: 12px;
-  font-weight: 700;
-  line-height: 18px;
-  letter-spacing: -0.01px;
-  height: 20px;
-  padding: 4px;
-  border-radius: 4px;
+  background-color: #f1f1f1;
+  color: #191919;
 }
 
 .meta-tag--running {
-  font-size: 12px;
-  font-weight: 700;
-  line-height: 18px;
-  letter-spacing: -0.01px;
   background-color: #e7fbef;
   color: #00832d;
-  padding: 4px;
-  border-radius: 4px;
-  height: 20px;
 }
 
 .detail-header__actions {
