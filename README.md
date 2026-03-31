@@ -4,7 +4,7 @@ A campaign management prototype for managing promotional campaigns and merchandi
 
 ## Live Demo
 
-Your GitHub Page is now live at: https://bonni3l33.github.io/0330_PM/
+Your GitHub Page is now live at: https://bonni3l33.github.io/0330_PM/programs
 
 ## Overview
 
