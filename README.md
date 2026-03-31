@@ -4,21 +4,7 @@ A campaign management prototype for managing promotional campaigns and merchandi
 
 ## Live Demo
 
-**AI Campaign Creation Views**: https://bonni3l33.github.io/bonnie-prototype-live/
-
-### Program Management Views
-
-**Programs Overview**
-- https://bonni3l33.github.io/bonnie-prototype-live/programs.html
-
-**Program Detail Pages**
-- **NPWS (National Program)**: https://bonni3l33.github.io/bonnie-prototype-live/program-detail-v2.html
-- **Ulta Partnership**: https://bonni3l33.github.io/bonnie-prototype-live/program-detail-ulta.html
-- **Lifecycle Resurrection**: https://bonni3l33.github.io/bonnie-prototype-live/program-detail-lifecycle.html
-- **Signup AI Evergreen**: https://bonni3l33.github.io/bonnie-prototype-live/program-detail-signup-ai.html
-- **Summer of Dashpass**: https://bonni3l33.github.io/bonnie-prototype-live/program-detail-sodp.html
-
-Access requires DoorDash GitHub organization membership (Engineering, Product Design, or Design Infrastructure teams).
+✅ **GitHub Pages URL**: https://bonni3l33.github.io/0330_AM/
 
 ## Overview
 
