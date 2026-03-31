@@ -34,16 +34,7 @@ document.addEventListener('DOMContentLoaded', function() {
   // View details buttons - now handled by anchor tags
   // No longer needed since buttons are now links
 
-  // Create program button
-  const createButton = document.querySelector('.btn-primary');
-  if (createButton) {
-    createButton.addEventListener('click', function() {
-      console.log('Create program clicked');
-
-      // In a real application, this would navigate to program creation flow
-      alert('Create program functionality would be triggered here');
-    });
-  }
+  // Create program button - now handled by anchor tag link to create-program.html
 
   // AI Chat Panel Toggle
   const aiChatButton = document.querySelector('[title="AI Chat"]');
@@ -86,4 +77,22 @@ document.addEventListener('DOMContentLoaded', function() {
       alert('AI Suggestion: ' + suggestionText + '\n\nThis would be sent to the AI chat interface.');
     });
   });
+
+  // Expandable Side Navigation - User Journeys
+  const userJourneysToggle = document.getElementById('userJourneysToggle');
+  const userJourneysNested = document.getElementById('userJourneysNested');
+
+  if (userJourneysToggle && userJourneysNested) {
+    userJourneysToggle.addEventListener('click', function(e) {
+      e.preventDefault();
+
+      // Toggle expanded class on button
+      this.classList.toggle('expanded');
+
+      // Toggle show class on nested container
+      userJourneysNested.classList.toggle('show');
+
+      console.log('User Journeys expanded:', this.classList.contains('expanded'));
+    });
+  }
 });
